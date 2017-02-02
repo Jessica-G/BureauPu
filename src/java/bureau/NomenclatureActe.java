@@ -17,53 +17,32 @@ import javax.persistence.Id;
  * @author Jessica Ghenassia
  */
 @Entity
-public class Admission implements Serializable {
+public class NomenclatureActe implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
-    private int ipp; 
+    private int code; 
     @Column
-    private int iep; 
-    @Column
-    private String nom; 
-    @Column
-    private String prenom; 
+    private String libelle; 
 
-    public int getIpp() {
-        return ipp;
+    public int getCode() {
+        return code;
     }
 
-    public void setIpp(int ipp) {
-        this.ipp = ipp;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public int getIep() {
-        return iep;
+    public String getLibelle() {
+        return libelle;
     }
 
-    public void setIep(int iep) {
-        this.iep = iep;
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
 
     public Long getId() {
         return id;
@@ -83,10 +62,10 @@ public class Admission implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Admission)) {
+        if (!(object instanceof NomenclatureActe)) {
             return false;
         }
-        Admission other = (Admission) object;
+        NomenclatureActe other = (NomenclatureActe) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -95,7 +74,7 @@ public class Admission implements Serializable {
 
     @Override
     public String toString() {
-        return "bureau.Admission[ id=" + id + " ]";
+        return "bureau.Acte[ id=" + id + " ]";
     }
     
 }

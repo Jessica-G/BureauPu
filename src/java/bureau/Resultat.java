@@ -17,53 +17,42 @@ import javax.persistence.Id;
  * @author Jessica Ghenassia
  */
 @Entity
-public class Admission implements Serializable {
+public class Resultat implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
-    private int ipp; 
+    private String valeur; 
     @Column
-    private int iep; 
+    private String dateResultat;
     @Column
-    private String nom; 
-    @Column
-    private String prenom; 
+    private String commentaire; 
 
-    public int getIpp() {
-        return ipp;
+    public String getValeur() {
+        return valeur;
     }
 
-    public void setIpp(int ipp) {
-        this.ipp = ipp;
+    public void setValeur(String valeur) {
+        this.valeur = valeur;
     }
 
-    public int getIep() {
-        return iep;
+    public String getDateResultat() {
+        return dateResultat;
     }
 
-    public void setIep(int iep) {
-        this.iep = iep;
+    public void setDateResultat(String dateResultat) {
+        this.dateResultat = dateResultat;
     }
 
-    public String getNom() {
-        return nom;
+    public String getCommentaire() {
+        return commentaire;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setCommentaire(String commentaire) {
+        this.commentaire = commentaire;
     }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
 
     public Long getId() {
         return id;
@@ -83,10 +72,10 @@ public class Admission implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Admission)) {
+        if (!(object instanceof Resultat)) {
             return false;
         }
-        Admission other = (Admission) object;
+        Resultat other = (Resultat) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -95,7 +84,7 @@ public class Admission implements Serializable {
 
     @Override
     public String toString() {
-        return "bureau.Admission[ id=" + id + " ]";
+        return "bureau.Resultat[ id=" + id + " ]";
     }
     
 }

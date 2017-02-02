@@ -3,6 +3,9 @@
   <persistence-unit name="bureauPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>bureau.Admission</class>
+    <class>bureau.Analyse</class>
+    <class>bureau.Resultat</class>
+    <class>bureau.NomenclatureActe</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bureaupu?zeroDateTimeBehavior=convertToNull"/>
