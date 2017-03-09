@@ -10,5 +10,5 @@ package bureau;
  * @author Jessica Ghenassia
  */
 public enum UniteFonctionnelle {
-    CARDIOLOGIE, CHIRURGIE, URGENCE
+    CARDIOLOGIE, CHIRURGIE, URGENCE, INCONNU
 }

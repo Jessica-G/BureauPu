@@ -4,10 +4,15 @@
  * and open the template in the editor.
  */
 
+import bureau.Admission;
+import bureau.Analyse;
 import bureau.Boite;
 import bureau.Crayon;
 import bureau.DatabaseUtils;
+import bureau.NomenclatureActe;
+import bureau.Resultat;
 import bureau.Services;
+import bureau.UniteFonctionnelle;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -59,8 +64,11 @@ public class bureauTest {
         Services serv = new Services(DatabaseUtils.fact());
         serv.deleteAllBoites();
         serv.deleteAllCrayons();
-        List<Crayon> res = serv.getAllCrayons();
-        assert(res.isEmpty());
+        serv.deleteAllAdmission();
+        serv.deleteAllAnalyse();
+        serv.deleteAllNomenclatureActe();
+        serv.deleteAllResultat();
+        
     }
     
         
@@ -136,4 +144,151 @@ public class bureauTest {
         
         
     }
+    
+    
+    
+        @Test
+    public void admision() {
+        // ajouter une admission
+        clean();
+        Services serv = new Services(DatabaseUtils.fact());
+        Admission adm = new Admission();
+        adm.setPrenom("Jessica");
+        adm.setNom("Ghenassia");
+        adm.setIpp("0101010101");
+        adm.setIep("123");
+        serv.newAdmission(adm);
+
+        List<Admission> res = serv.getAllAdmissions();
+        assert(!res.isEmpty());
+        assert(res.size() == 1);
+        
+    }  
+    
+    @Test
+    public void getAdmisionByIep() {
+        // ajouter une admission
+        clean();
+        Services serv = new Services(DatabaseUtils.fact());
+        Admission adm = new Admission();
+        adm.setPrenom("Jessica");
+        adm.setNom("Ghenassia");
+        adm.setIpp("0101010101");
+        adm.setIep("123");
+        serv.newAdmission(adm);
+
+        Admission adm2 = serv.getAdmissionByIep("123");
+        
+        assert(adm2.getIpp().equals(adm.getIpp()));
+        
+    }
+    
+    @Test
+    public void analyse(){
+        clean();
+        Services serv = new Services(DatabaseUtils.fact());
+        
+        Analyse analyse = new Analyse();
+        analyse.setDateDemande("12/02/20016");
+        analyse.setDateRealisation("13/02/2016");
+        analyse.setServiceDemandeur(UniteFonctionnelle.URGENCE);
+        NomenclatureActe nomAct = new NomenclatureActe(); 
+        nomAct.setCode("4321");
+        nomAct.setLibelle("Prise de sang");
+        
+        analyse.setTypeActe(nomAct);
+        serv.newAnalyse(analyse);
+        
+        List<Analyse> res = serv.getAllAnalyses();
+        assert(!res.isEmpty());
+        assert(res.size() == 1);
+    }
+    
+        @Test
+    public void updateAnalyseWithPatient(){
+        clean();
+        Services serv = new Services(DatabaseUtils.fact());
+        
+        Analyse analyse = new Analyse();
+        analyse.setDateDemande("12/02/20016");
+        analyse.setDateRealisation("13/02/2016");
+        analyse.setServiceDemandeur(UniteFonctionnelle.URGENCE);
+        analyse.setTypeActe(new NomenclatureActe());
+        
+        serv.newAnalyse(analyse);
+        
+        Admission adm = new Admission();
+        adm.setPrenom("Jessica");
+        adm.setNom("Ghenassia");
+        adm.setIpp("0101010101");
+        adm.setIep("123");
+        analyse.setPatient(adm);
+        
+        serv.updateAnalyse(analyse);
+        
+        
+        List<Analyse> res = serv.getAllAnalyses();
+        assert(!res.isEmpty());
+        assert(res.size() == 1);
+    }
+    
+            @Test
+    public void updateAnalyseWithResult(){
+        clean();
+        Services serv = new Services(DatabaseUtils.fact());
+        
+        Analyse analyse = new Analyse();
+        analyse.setDateDemande("12/02/20016");
+        analyse.setDateRealisation("13/02/2016");
+        analyse.setServiceDemandeur(UniteFonctionnelle.URGENCE);
+        analyse.setTypeActe(new NomenclatureActe());
+        
+        serv.newAnalyse(analyse);
+        
+        Resultat result = new Resultat(); 
+        result.setValeur("10mg");
+        result.setDateResultat("16/02/2016");
+        result.setCommentaire("glycémie");
+        analyse.setResultat(result);
+        
+        serv.updateAnalyse(analyse);
+        
+        
+        List<Analyse> res = serv.getAllAnalyses();
+        assert(!res.isEmpty());
+        assert(res.size() == 1);
+    }
+    
+ /*  @Test
+    public void analyse() {
+        clean();
+        Services serv = new Services(DatabaseUtils.fact());
+        
+        Admission adm = new Admission();
+        adm.setPrenom("Jessica");
+        adm.setNom("Ghenassia");
+        adm.setIpp("0101010101");
+        adm.setIep("123");
+        serv.newAdmission(adm);
+        
+        Admission adm = serv.getAdmissionByIep("123");
+        
+        Analyse analyse = new Analyse();
+        analyse.setDateDemande("12/02/20016");
+        analyse.set
+        analyse.statut = StatutAnalyse.DEMANDEE; 
+        analyse.serviceDemandeur = null; 
+        analyse.typeActe = null; 
+        analyse.resultat = null; 
+        analyse.patient = null; 
+        
+        adm.getListeActes().add(acte);
+        
+        serv.newActe(acte);
+        serv.newAdmission(adm);
+        List<Acte> res = serv.getAllActes();
+        assert(!res.isEmpty());
+        assert(res.size() == 1);
+        
+    }*/
 }

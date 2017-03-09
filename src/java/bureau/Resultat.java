@@ -29,6 +29,18 @@ public class Resultat implements Serializable {
     private String dateResultat;
     @Column
     private String commentaire; 
+    
+    public Resultat(){
+        this.valeur=""; 
+        this.dateResultat=""; 
+        this.commentaire=""; 
+    }
+    
+    public Resultat(String valeur, String dateResultat, String commentaire){
+        this.valeur=valeur; 
+        this.dateResultat=dateResultat; 
+        this.commentaire=commentaire; 
+    }
 
     public String getValeur() {
         return valeur;

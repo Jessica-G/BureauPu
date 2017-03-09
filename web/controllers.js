@@ -86,3 +86,25 @@ angular.module('monApp')
                 }
             }
         ])
+        
+        .controller('AnalyseNewController', ['Boites',
+            function (Boites) {
+                this.b = new Boites();
+                this.update = function () {
+                    // appel POST asynchrone au service web sur /crayons
+                    this.b.$save();
+                };
+            }])
+        
+        .controller('AdmissionController', ['Admission',
+            function (Admissions) {
+                this.admissions = Admissions.query();
+                this.delete = function (adm) {
+                    // appel DELETE asynchrone au service web sur /crayons/{id}
+                    //cr.$delete();
+                    Admissions.delete(adm);
+                    // remet à jour le tableau des crayons en suprimant l'élément effacé
+                    this.admissions.splice(this.admissions.indexOf(adm), 1);
+                };
+            }
+        ])

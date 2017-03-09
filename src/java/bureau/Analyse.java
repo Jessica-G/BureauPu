@@ -6,11 +6,16 @@
 package bureau;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -28,14 +33,39 @@ public class Analyse implements Serializable {
     @Column
     private String dateRealisation;
     @Column
-    private StatutAnalyse statut; 
+    private String statut; 
     @Column
-    private UniteFonctionnelle serviceDemandeur;
+    private String serviceDemandeur;
 
-    private NomenclatureActe typeActe; 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private NomenclatureActe typeActe;
+    
+    @OneToOne(cascade = CascadeType.ALL)
     private Resultat resultat;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
     private Admission patient; 
 
+    public Analyse(){
+        this.dateDemande = ""; 
+        this.dateRealisation = ""; 
+        this.statut = StatutAnalyse.DEMANDEE.toString(); 
+        this.serviceDemandeur = UniteFonctionnelle.INCONNU.toString(); 
+        this.typeActe = null; 
+        this.resultat = null; 
+        this.patient = null; 
+    }
+    
+    public Analyse(Admission patient){
+        this.dateDemande = ""; 
+        this.dateRealisation = ""; 
+        this.statut = StatutAnalyse.DEMANDEE.toString(); 
+        this.serviceDemandeur = null; 
+        this.typeActe = null; 
+        this.resultat = null; 
+        this.patient = patient; 
+    }
+    
     public Admission getPatient() {
         return patient;
     }
@@ -61,19 +91,19 @@ public class Analyse implements Serializable {
     }
 
     public StatutAnalyse getStatut() {
-        return statut;
+        return StatutAnalyse.valueOf(statut);
     }
 
     public void setStatut(StatutAnalyse statut) {
-        this.statut = statut;
+        this.statut = statut.toString();
     }
 
     public UniteFonctionnelle getServiceDemandeur() {
-        return serviceDemandeur;
+        return UniteFonctionnelle.valueOf(serviceDemandeur);
     }
 
     public void setServiceDemandeur(UniteFonctionnelle serviceDemandeur) {
-        this.serviceDemandeur = serviceDemandeur;
+        this.serviceDemandeur = serviceDemandeur.toString();
     }
 
     public NomenclatureActe getTypeActe() {

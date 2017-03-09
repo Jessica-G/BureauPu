@@ -24,15 +24,25 @@ public class NomenclatureActe implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
-    private int code; 
+    private String code; 
     @Column
     private String libelle; 
+    
+    public NomenclatureActe(){
+        this.code = ""; 
+        this.libelle = ""; 
+    }
+    
+    public NomenclatureActe(String code, String libelle){
+        this.code = code; 
+        this.libelle = libelle; 
+    }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

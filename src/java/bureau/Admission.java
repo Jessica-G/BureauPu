@@ -24,27 +24,41 @@ public class Admission implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
-    private int ipp; 
+    private String ipp; 
     @Column
-    private int iep; 
+    private String iep; 
     @Column
     private String nom; 
     @Column
     private String prenom; 
 
-    public int getIpp() {
+    public Admission(){
+        this.ipp = ""; 
+        this.iep = ""; 
+        this.nom = ""; 
+        this.prenom = ""; 
+    }
+    
+    public Admission(String ipp, String iep, String nom, String prenom){
+        this.ipp = ipp; 
+        this.iep = iep; 
+        this.nom = nom; 
+        this.prenom = prenom; 
+    }
+    
+    public String getIpp() {
         return ipp;
     }
 
-    public void setIpp(int ipp) {
+    public void setIpp(String ipp) {
         this.ipp = ipp;
     }
 
-    public int getIep() {
+    public String getIep() {
         return iep;
     }
 
-    public void setIep(int iep) {
+    public void setIep(String iep) {
         this.iep = iep;
     }
 
